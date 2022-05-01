@@ -157,7 +157,60 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btnSubmit  -> {
-                // TODO: "implement sumbit button
+                if(mSelectedOptionPosition == 0){
+                    mCurrentPosition++
+
+                    when{
+                        mCurrentPosition <= mQuestionsList!!.size -> {
+                            setQuestion()
+                        }
+                    }
+                }else {
+                    val question = mQuestionsList?.get(mCurrentPosition-1)
+                    if(question!!.correctAnswer != mSelectedOptionPosition){
+                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg
+                        )
+                    }
+                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+
+                    if(mCurrentPosition == mQuestionsList!!.size){
+                        btnSubmit?.text = "FINISH"
+                    } else{
+                        btnSubmit?.text = "Go to next question"
+                    }
+
+                    mSelectedOptionPosition = 0
+
+                }
+            }
+        }
+    }
+
+    private fun answerView(answer: Int, drawableView: Int){
+        when(answer) {
+            1-> {
+                optionOne?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            2-> {
+                optionTwo?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            3-> {
+                optionThree?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
+            }
+            4-> {
+                optionFour?.background = ContextCompat.getDrawable(
+                    this,
+                    drawableView
+                )
             }
         }
     }

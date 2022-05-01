@@ -16,17 +16,17 @@ object Constants {
             2
         )
         val questionTwo = Question(
-            1,
+            2,
             "What country does this flag belong to?",
             R.drawable.canada,
-            "Argentina",
+            "Turkmenistan",
             "Canada",
             "Philippines",
             "Japan",
             2
         )
         val questionThree = Question(
-            1,
+            3,
             "What country does this flag belong to?",
             R.drawable.canada,
             "Argentina",

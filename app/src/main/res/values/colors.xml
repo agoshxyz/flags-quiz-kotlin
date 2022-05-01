@@ -10,4 +10,6 @@
     <color name="primary_text_color">#005bbb</color>
     <color name="secondary_text_color">#7A8089</color>
     <color name="yellow_text_color">#ffd500</color>
+    <color name="correct_answer_color">#8BC34A</color>
+    <color name="wrong_answer_color">#F44336</color>
 </resources>
