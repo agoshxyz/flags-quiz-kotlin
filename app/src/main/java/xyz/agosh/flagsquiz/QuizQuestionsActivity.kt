@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import org.w3c.dom.Text
 
@@ -18,6 +15,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedOptionPosition: Int = 0
+    private var mUserName: String? = null
 
     private var progressBar: ProgressBar? = null
     private var textProgressBar: TextView? = null
@@ -33,6 +31,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        mUserName = intent.getStringExtra(Constants.USER_NAME)
 
         progressBar = findViewById(R.id.progressBar)
         textProgressBar = findViewById(R.id.textProgressBar)
@@ -67,6 +67,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 //        for (i in mQuestionsList!!) {
 //            Log.e("Questions: ", i.question)
 //        }
+        defaultOptionsView()
 
         val question: Question = mQuestionsList!![mCurrentPosition - 1]
 
@@ -163,6 +164,8 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     when{
                         mCurrentPosition <= mQuestionsList!!.size -> {
                             setQuestion()
+                        }else ->{
+                            Toast.makeText(this, "Congrats! You made it", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else {
