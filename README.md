@@ -3,5 +3,5 @@
 
 ## Screenshots
 
-![App Screenshot]('./screenshots/screenshot1.png')
+![App Screenshot]('https://ibb.co/v3zp7kq')
 ![App Screenshot](./screenshots/screenshot2.png)
