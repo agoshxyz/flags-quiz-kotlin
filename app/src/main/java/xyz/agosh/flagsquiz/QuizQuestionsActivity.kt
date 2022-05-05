@@ -1,5 +1,6 @@
 package xyz.agosh.flagsquiz
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedOptionPosition: Int = 0
     private var mUserName: String? = null
+    private var mCorrectAnswers: Int = 0
 
     private var progressBar: ProgressBar? = null
     private var textProgressBar: TextView? = null
@@ -33,6 +35,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_quiz_questions)
 
         mUserName = intent.getStringExtra(Constants.USER_NAME)
+
 
         progressBar = findViewById(R.id.progressBar)
         textProgressBar = findViewById(R.id.textProgressBar)
@@ -132,53 +135,64 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
             R.id.optionOne -> {
-                optionOne?.let{
+                optionOne?.let {
                     selectedOptionView(it, 1)
                 }
             }
 
             R.id.optionTwo -> {
-                optionTwo?.let{
+                optionTwo?.let {
                     selectedOptionView(it, 2)
                 }
             }
 
             R.id.optionThree -> {
-                optionThree?.let{
+                optionThree?.let {
                     selectedOptionView(it, 3)
                 }
             }
 
-            R.id.optionFour  -> {
-                optionFour?.let{
+            R.id.optionFour -> {
+                optionFour?.let {
                     selectedOptionView(it, 4)
                 }
             }
 
-            R.id.btnSubmit  -> {
-                if(mSelectedOptionPosition == 0){
+            R.id.btnSubmit -> {
+                if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
 
-                    when{
+                    when {
                         mCurrentPosition <= mQuestionsList!!.size -> {
                             setQuestion()
-                        }else ->{
+                        }
+                        else -> {
+                            val intent = Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME, mUserName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers  )
+                            intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
+                            startActivity(intent)
+                            finish()
+
                             Toast.makeText(this, "Congrats! You made it", Toast.LENGTH_SHORT).show()
                         }
                     }
-                }else {
-                    val question = mQuestionsList?.get(mCurrentPosition-1)
-                    if(question!!.correctAnswer != mSelectedOptionPosition){
-                        answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg
+                } else {
+                    val question = mQuestionsList?.get(mCurrentPosition - 1)
+                    if (question!!.correctAnswer != mSelectedOptionPosition) {
+                        answerView(
+                            mSelectedOptionPosition, R.drawable.wrong_option_border_bg
                         )
+                    } else {
+                        mCorrectAnswers++
                     }
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
-                    if(mCurrentPosition == mQuestionsList!!.size){
+                    if (mCurrentPosition == mQuestionsList!!.size) {
                         btnSubmit?.text = "FINISH"
-                    } else{
+                    } else {
                         btnSubmit?.text = "Go to next question"
                     }
 
@@ -189,27 +203,27 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun answerView(answer: Int, drawableView: Int){
-        when(answer) {
-            1-> {
+    private fun answerView(answer: Int, drawableView: Int) {
+        when (answer) {
+            1 -> {
                 optionOne?.background = ContextCompat.getDrawable(
                     this,
                     drawableView
                 )
             }
-            2-> {
+            2 -> {
                 optionTwo?.background = ContextCompat.getDrawable(
                     this,
                     drawableView
                 )
             }
-            3-> {
+            3 -> {
                 optionThree?.background = ContextCompat.getDrawable(
                     this,
                     drawableView
                 )
             }
-            4-> {
+            4 -> {
                 optionFour?.background = ContextCompat.getDrawable(
                     this,
                     drawableView

@@ -99,22 +99,13 @@ object Constants {
             9,
             "What country does this flag belong to?",
             R.drawable.solomon_islands,
-            "Argentina",
+            "Uganda",
             "Canada",
             "Philippines",
             "Solomon islands",
             4
         )
-        val questionTen = Question(
-            10,
-            "What country does this flag belong to?",
-            R.drawable.japan,
-            "Argentina",
-            "Japan",
-            "Philippines",
-            "Columbia",
-            2
-        )
+
         questionsList.add(questionOne)
         questionsList.add(questionTwo)
         questionsList.add(questionThree)
@@ -124,7 +115,6 @@ object Constants {
         questionsList.add(questionSeven)
         questionsList.add(questionEight)
         questionsList.add(questionNine)
-        questionsList.add(questionTen)
 
         return questionsList
     }
